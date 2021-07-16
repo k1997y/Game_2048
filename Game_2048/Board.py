@@ -1,12 +1,60 @@
+import pygame
+import Tile
+import numpy as np
+import random
+
 class Board():
+    # 定数
+    WIDTH = 400 # 盤面の幅
+    HEIGHT = 400 # 盤面の高さ
+    P_2 = 0.9 # 2の出現確率
+    P_4 = 0.1 # 4の出現確率
+
     # filenames: ファイルパスのリスト
-    def __init__(self,filenames):
-        pygame.sprite.Sprite.__init__(self,self.containers)
+    def __init__(self):
+        #pygame.sprite.Sprite.__init__(self)
 
         # 画像データをロードする
-        self.images = []
-        for filename in filenames:
-            self.images.append(pygame.image.load(filename).convert())
+        #self.images = []
+        #for filename in filenames:
+        #    self.images.append(pygame.image.load(filename).convert())
 
-        self.score=0
+        self.score = 0
 
+        # 盤面の2次元配列の作成
+        #self.tiles = np.empty((4,4))
+        self.tiles = [[None for i in range(4)] for j in range(4)]
+        for i in range(4):
+            for j in range(4):
+                self.tiles[i][j] = Tile.Tile(None)
+
+
+        #self.tiles = []
+        #for i in range(4):
+        #    sublist = []
+        #    for j in range(4):
+        #        sublist.append(Tile.Tile(None) #blankで埋める
+        #        #self.tiles[i][j] = Tile.Tile(None) #blankで埋める
+        #    self.tiles.append(sublist)
+
+        # ランダムで盤面に2枚のタイルを作成する
+        rand_i = random.randrange(0,3,1)
+        rand_j = random.randrange(0,3,1)
+        self.tiles[rand_i][rand_j] = Tile.Tile(self.genTileRandomly())
+
+        # 1枚目のタイルと被りがあるなら再度他の場所に生成する
+        while(True):
+            rand_i = random.randrange(0,3,1)
+            rand_j = random.randrange(0,3,1)
+            if self.tiles[rand_i][rand_j].number == None:
+                self.tiles[rand_i][rand_j] = Tile.Tile(self.genTileRandomly())
+                break
+
+
+
+    # 予め設定された確率で2or4のタイルを出す
+    def genTileRandomly(self):
+        if self.P_2 > random.random():
+            return 2
+        else:
+            return 4
