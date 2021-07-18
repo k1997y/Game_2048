@@ -51,8 +51,9 @@ def main():
             # 数字をタイル上に出力する
             if board.tiles[i,j] != 0:
                 text = font.render(str(board.tiles[i,j]),True,color)
-                screen.blit(text,tile)
-
+                # TODO: 文字の位置が適切でないため修正必要
+                screen.blit(text,[(j + 1) * board.INTERVAL + j * board.TILE_WIDTH+(board.TILE_WIDTH/3),(i+1)*board.INTERVAL+i*board.TILE_HEIGHT+(board.TILE_HEIGHT/3)])
+               
 
 
     pygame.display.flip()
