@@ -5,6 +5,8 @@ import Board
 #SCREEN = pygame.Rect(0,0,400,400)
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 1024
+# フォントサイズ
+FONT_SIZE = 22
 
 def main():
     pygame.init()
@@ -26,6 +28,10 @@ def main():
     #filenames.append("2048_material/tile_2048.png")
     #filenames.append("2048_material/tile_tile_blank.png")
 
+    #フォントの設定
+    font = pygame.font.Font(None,FONT_SIZE)
+    
+
     # 盤面準備
     board = Board.Board()
     screen.fill("#92877d")
@@ -37,6 +43,17 @@ def main():
             tile = pygame.Rect((j + 1) * board.INTERVAL + j * board.TILE_WIDTH,(i+1)*board.INTERVAL+i*board.TILE_HEIGHT,board.TILE_WIDTH,board.TILE_HEIGHT)
             color = getColorFromNum(board.tiles[i,j])
             screen.fill(color,rect=tile)
+            # 数字の色を決める
+            if board.tiles[i,j] == 2 or board.tiles[i,j] == 4 :
+                color= pygame.Color("#000000")
+            else:
+                color = pygame.Color("#FFFFFF")
+            # 数字をタイル上に出力する
+            if board.tiles[i,j] != 0:
+                text = font.render(str(board.tiles[i,j]),True,color)
+                screen.blit(text,tile)
+
+
 
     pygame.display.flip()
     clock = pygame.time.Clock()
