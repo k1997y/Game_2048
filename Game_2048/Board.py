@@ -25,7 +25,7 @@ class Board():
         self.score = 0
 
         # 盤面の2次元配列の作成
-        self.tiles = np.zeros((4,4))
+        self.tiles = np.zeros((4,4),dtype = "uint8")
         #self.tiles = [[0 for i in range(4)] for j in range(4)]
         #for i in range(4):
         #    for j in range(4):

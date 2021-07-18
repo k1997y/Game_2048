@@ -6,7 +6,7 @@ import Board
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 1024
 # フォントサイズ
-FONT_SIZE = 22
+FONT_SIZE = 50
 
 def main():
     pygame.init()
