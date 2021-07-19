@@ -52,6 +52,8 @@ def main():
                     sys.exit()
                 elif event.key == K_UP:
                     board.keyUp()
+                elif event.key == K_RIGHT:
+                    board.keyRight()
 
         # 画面更新
         drawBoard(font,screen,board)

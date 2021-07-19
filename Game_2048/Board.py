@@ -33,6 +33,17 @@ class Board():
         if i != 0:
             self.genTileRandomly()
 
+    # rightキーを押したときの挙動を定義
+    def keyRight(self):
+        i = 0
+        while True:
+            # どのタイルも動かなくなるまで繰り返す
+            if self.oneRightTile(self.tiles):
+                break
+            i = i + 1
+        if i != 0:
+            self.genTileRandomly()
+
 
         
 
@@ -56,7 +67,21 @@ class Board():
 
     # 1マスだけ全てのタイルを右に移動する
     # どのタイルも動かなかったらTrueを返す
-
+    def oneRightTile(self,tiles):
+        flag = True
+        for i in range(4):
+            for j in range(3):
+                # 右のマスがblankだった場合
+                if tiles[i,j + 1] == 0 and tiles[i,j] != 0:
+                    tiles[i,j + 1] = tiles[i,j]
+                    tiles[i,j] = 0
+                    flag = False
+                # 右のマスと番号が同じ場合マージする
+                elif tiles[i,j + 1] == tiles[i ,j] and tiles[i,j] != 0:
+                    tiles[i,j + 1] = tiles[i,j + 1] * 2
+                    tiles[i,j] = 0
+                    flag = False
+        return flag
 
 
     # 予め設定された確率で2か4を盤面上に生成する
