@@ -33,6 +33,28 @@ class Board():
         if i != 0:
             self.genTileRandomly()
 
+    # downキーを押したときの挙動を定義
+    def keyDown(self):
+        i = 0
+        while True:
+            # どのタイルも動かなくなるまで繰り返す
+            if self.oneDownTile(self.tiles):
+                break
+            i = i + 1
+        if i != 0:
+            self.genTileRandomly()
+
+     # leftキーを押したときの挙動を定義
+    def keyLeft(self):
+        i = 0
+        while True:
+            # どのタイルも動かなくなるまで繰り返す
+            if self.oneLeftTile(self.tiles):
+                break
+            i = i + 1
+        if i != 0:
+            self.genTileRandomly()
+
     # rightキーを押したときの挙動を定義
     def keyRight(self):
         i = 0
@@ -62,6 +84,42 @@ class Board():
                 elif tiles[i,j] == tiles[i + 1,j] and tiles[i,j] != 0:
                     tiles[i,j] = tiles[i,j] * 2
                     tiles[i + 1,j] = 0
+                    flag = False
+        return flag
+
+     # 1マスだけ全てのタイルを下に上げる
+    # どのタイルも動かなかったらTrueを返す
+    def oneDownTile(self,tiles):
+        flag = True
+        for i in range(3):
+            for j in range(4):
+                # 下のマスがblankだった場合
+                if tiles[i + 1,j] == 0 and tiles[i,j] != 0:
+                    tiles[i + 1,j] = tiles[i,j]
+                    tiles[i,j] = 0
+                    flag = False
+                # 上のマスと下のマスの番号が同じ場合マージする
+                elif tiles[i + 1,j] == tiles[i,j] and tiles[i + 1,j] != 0:
+                    tiles[i + 1,j] = tiles[i + 1,j] * 2
+                    tiles[i ,j] = 0
+                    flag = False
+        return flag
+
+    # 1マスだけ全てのタイルを左に移動する
+    # どのタイルも動かなかったらTrueを返す
+    def oneLeftTile(self,tiles):
+        flag = True
+        for i in range(4):
+            for j in range(3):
+                # 左のマスがblankだった場合
+                if tiles[i,j] == 0 and tiles[i,j + 1] != 0:
+                    tiles[i,j] = tiles[i,j + 1]
+                    tiles[i,j + 1] = 0
+                    flag = False
+                # 左のマスと番号が同じ場合マージする
+                elif tiles[i,j] == tiles[i ,j + 1] and tiles[i,j + 1] != 0:
+                    tiles[i,j] = tiles[i,j] * 2
+                    tiles[i,j + 1] = 0
                     flag = False
         return flag
 
