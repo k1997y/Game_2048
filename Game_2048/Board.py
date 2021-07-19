@@ -12,34 +12,11 @@ class Board():
     P_2 = 0.9 # 2の出現確率
     P_4 = 0.1 # 4の出現確率
 
-
-    # filenames: ファイルパスのリスト
     def __init__(self):
-        #pygame.sprite.Sprite.__init__(self)
-
-        # 画像データをロードする
-        #self.images = []
-        #for filename in filenames:
-        #    self.images.append(pygame.image.load(filename).convert())
-
         self.score = 0
 
         # 盤面の2次元配列の作成
         self.tiles = np.zeros((4,4),dtype = "uint8")
-        #self.tiles = [[0 for i in range(4)] for j in range(4)]
-        #for i in range(4):
-        #    for j in range(4):
-        #        #self.tiles[i][j] = Tile.Tile(None)
-        #        self.tiles[i][j] = 0
-
-
-        #self.tiles = []
-        #for i in range(4):
-        #    sublist = []
-        #    for j in range(4):
-        #        sublist.append(Tile.Tile(None) #blankで埋める
-        #        #self.tiles[i][j] = Tile.Tile(None) #blankで埋める
-        #    self.tiles.append(sublist)
 
         # ランダムで盤面に2枚のタイルを作成する
         rand_i = random.randrange(0,3,1)
@@ -67,7 +44,7 @@ class Board():
     def keyUp(self):
         while True:
             # どのタイルも動かなくなるまで繰り返す
-            if not oneUpTile(self,self.tiles):
+            if self.oneUpTile(self.tiles):
                 break
 
 
@@ -77,7 +54,9 @@ class Board():
         flag = False
         for i in range(3):
             for j in range(4):
+                # 上のマスがblankだった場合
                 if tiles[i,j] == 0:
                     tiles[i,j] = tiles[i+1,j]
+                    tiles[i+1,j] = 0
                     flag = True
         return flag
