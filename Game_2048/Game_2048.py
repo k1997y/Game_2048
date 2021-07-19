@@ -6,7 +6,7 @@ import Board
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 1024
 # フォントサイズ
-FONT_SIZE = 50
+FONT_SIZE = 70
 
 def main():
     pygame.init()
@@ -60,7 +60,13 @@ def main():
     clock = pygame.time.Clock()
 
     while True:
-        clock.tick(60)
+        # イベントの処理
+        for event in pygame.event.get():
+             # ESCが押されたらプログラムを終了する
+            if event.type == QUIT:
+                sys.exit()
+            elif event.type == KEYUP:
+                
 
     # クロック準備
     #clock=pygame.time.Clock()
@@ -101,8 +107,6 @@ def getColorFromNum(number):
         return pygame.Color("#edc53f")
     elif number == 2048:
         return pygame.Color("#edc22e")
-
-
 
 if __name__ == "__main__":
     main()

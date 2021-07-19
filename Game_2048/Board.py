@@ -62,3 +62,22 @@ class Board():
             return 2
         else:
             return 4
+
+    # upキーを押したときの挙動を定義
+    def keyUp(self):
+        while True:
+            # どのタイルも動かなくなるまで繰り返す
+            if not oneUpTile(self,self.tiles):
+                break
+
+
+    # 1マスだけ全てのタイルを上に上げる
+    # どのタイルも動かなかったらFalseを返す
+    def oneUpTile(self,tiles):
+        flag = False
+        for i in range(3):
+            for j in range(4):
+                if tiles[i,j] == 0:
+                    tiles[i,j] = tiles[i+1,j]
+                    flag = True
+        return flag
