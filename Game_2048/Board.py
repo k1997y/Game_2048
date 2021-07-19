@@ -19,44 +19,57 @@ class Board():
         self.tiles = np.zeros((4,4),dtype = "uint8")
 
         # ランダムで盤面に2枚のタイルを作成する
-        rand_i = random.randrange(0,3,1)
-        rand_j = random.randrange(0,3,1)
-        #self.tiles[rand_i][rand_j] = Tile.Tile(self.genTileRandomly())
-        self.tiles[rand_i,rand_j]=self.genTileRandomly()
-
-        # 1枚目のタイルと被りがあるなら再度他の場所に生成する
-        while(True):
-            rand_i = random.randrange(0,3,1)
-            rand_j = random.randrange(0,3,1)
-            if self.tiles[rand_i][rand_j] == 0:
-                #self.tiles[rand_i][rand_j] = Tile.Tile(self.genTileRandomly())
-                self.tiles[rand_i,rand_j]=self.genTileRandomly()
-                break
-
-    # 予め設定された確率で2or4のタイルを出す
-    def genTileRandomly(self):
-        if self.P_2 > random.random():
-            return 2
-        else:
-            return 4
-
+        self.genTileRandomly()
+        self.genTileRandomly()
+    
     # upキーを押したときの挙動を定義
     def keyUp(self):
+        i = 0
         while True:
             # どのタイルも動かなくなるまで繰り返す
             if self.oneUpTile(self.tiles):
                 break
+            i = i + 1
+        if i != 0:
+            self.genTileRandomly()
 
+
+        
 
     # 1マスだけ全てのタイルを上に上げる
-    # どのタイルも動かなかったらFalseを返す
+    # どのタイルも動かなかったらTrueを返す
     def oneUpTile(self,tiles):
-        flag = False
+        flag = True
         for i in range(3):
             for j in range(4):
                 # 上のマスがblankだった場合
-                if tiles[i,j] == 0:
-                    tiles[i,j] = tiles[i+1,j]
-                    tiles[i+1,j] = 0
-                    flag = True
+                if tiles[i,j] == 0 and tiles[i + 1,j] != 0:
+                    tiles[i,j] = tiles[i + 1,j]
+                    tiles[i + 1,j] = 0
+                    flag = False
+                # 上のマスと下のマスの番号が同じ場合マージする
+                elif tiles[i,j] == tiles[i + 1,j] and tiles[i,j] != 0:
+                    tiles[i,j] = tiles[i,j] * 2
+                    tiles[i + 1,j] = 0
+                    flag = False
         return flag
+
+    # 1マスだけ全てのタイルを右に移動する
+    # どのタイルも動かなかったらTrueを返す
+
+
+
+    # 予め設定された確率で2か4を盤面上に生成する
+    def genTileRandomly(self):
+         genNum = 0
+         if self.P_2 > random.random():
+            genNum = 2
+         else:
+            genNum = 4
+
+         while(True):
+            rand_i = random.randrange(0,3,1)
+            rand_j = random.randrange(0,3,1)
+            if self.tiles[rand_i][rand_j] == 0:
+                self.tiles[rand_i,rand_j] = genNum
+                break
