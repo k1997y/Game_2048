@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>3b01e3f3-ec4f-4495-b1ce-22d5c269b63e</ProjectGuid>
+    <ProjectGuid>ef3c7ec4-31c3-401a-81bf-70e5cf55da08</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Game_2048.py</StartupFile>
+    <StartupFile>Game_2048_withAI.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Game_2048</Name>
-    <RootNamespace>Game_2048</RootNamespace>
+    <Name>Game_2048_withAI</Name>
+    <RootNamespace>Game_2048_withAI</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,16 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Board.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Game_2048.py" />
-    <Compile Include="UnitTest\test_Board.py">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UnitTest\" />
+    <Compile Include="Game_2048_withAI.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
