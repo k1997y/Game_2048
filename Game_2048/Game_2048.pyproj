@@ -11,6 +11,7 @@
     <OutputPath>.</OutputPath>
     <Name>Game_2048</Name>
     <RootNamespace>Game_2048</RootNamespace>
+    <TestFramework>unittest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>

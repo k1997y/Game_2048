@@ -23,6 +23,7 @@ class Board():
         self.genTileRandomly()
     
     # upキーを押したときの挙動を定義
+    # タイルが動いたらTrue, 1つも動かなかったらFalse
     def keyUp(self):
         i = 0
         while True:
@@ -31,7 +32,8 @@ class Board():
                 break
             i = i + 1
         if i != 0:
-            self.genTileRandomly()
+            #self.genTileRandomly()
+            return True
 
     # downキーを押したときの挙動を定義
     def keyDown(self):

@@ -18,7 +18,6 @@ def main():
     #フォントの設定
     font = pygame.font.Font(None,FONT_SIZE)
     
-
     # 盤面準備
     board = Board.Board()
     screen.fill("#92877d")
@@ -27,18 +26,12 @@ def main():
     # 盤面描画
     drawBoard(font,screen,board)       
 
-
     pygame.display.flip()
     clock = pygame.time.Clock()
 
     # ゲームループ開始
     while True:
         pygame.time.wait(30)
-        #pressedKey = pygame.key.get_pressed()
-
-        ## キーの処理
-        #if pressedKey[K_UP]:
-        #    board.keyUp()
 
         # イベントの処理
         for event in pygame.event.get():
@@ -51,7 +44,8 @@ def main():
                 if event.key == K_ESCAPE:
                     sys.exit()
                 elif event.key == K_UP:
-                    board.keyUp()
+                    if board.keyUp():
+                        board.genTileRandomly()
                 elif event.key == K_DOWN:
                     board.keyDown()
                 elif event.key == K_LEFT:
