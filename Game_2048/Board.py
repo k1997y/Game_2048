@@ -28,12 +28,20 @@ class Board():
         i = 0
         while True:
             # どのタイルも動かなくなるまで繰り返す
-            if self.oneUpTile(self.tiles):
+            if self.moveTilesUp(self.tiles):
                 break
             i = i + 1
         if i != 0:
             #self.genTileRandomly()
             return True
+
+    def keyUp(self):
+        flag = False    # タイルが1つも動かないままならFalseとなる
+        for column in range(4):
+            if self.moveTilesUp(self.tiles,column):
+                flag = True
+        return flag
+
 
     # downキーを押したときの挙動を定義
     def keyDown(self):
@@ -71,23 +79,47 @@ class Board():
 
         
 
-    # 1マスだけ全てのタイルを上に上げる
-    # どのタイルも動かなかったらTrueを返す
-    def oneUpTile(self,tiles):
-        flag = True
-        for i in range(3):
-            for j in range(4):
-                # 上のマスがblankだった場合
-                if tiles[i,j] == 0 and tiles[i + 1,j] != 0:
-                    tiles[i,j] = tiles[i + 1,j]
-                    tiles[i + 1,j] = 0
-                    flag = False
-                # 上のマスと下のマスの番号が同じ場合マージする
-                elif tiles[i,j] == tiles[i + 1,j] and tiles[i,j] != 0:
-                    tiles[i,j] = tiles[i,j] * 2
-                    tiles[i + 1,j] = 0
-                    flag = False
-        return flag
+    # TODO: フラグ変数が多く可読性が低いため、関数で分割するなど工夫できないか
+    # 指定された行のタイルを上に移動させる
+    def moveTilesUp(self,tiles,column):
+        isMovedInThisLoop = True # その周で1度でも動いたらTrueにする
+        isNotMerged = True  # マージ済みならFalse
+        isMoved = False # この関数内で1度も動かなかったらFalse
+
+        # タイルが動かなくなるまでループする
+        while isMovedInThisLoop:
+            isMovedInThisLoop = False
+            for row in range(3):
+                # 上のマスが空ならタイルを移動
+                if tiles[row,column] == 0 and tiles[row + 1,column] != 0:
+                    tiles[row,column] = tiles[row + 1,column]
+                    tiles[row + 1,column] = 0
+                    isMovedInThisLoop = True
+                    isMoved = True
+                # 上のマスと下のマスの数字が同じ場合マージする(既にこの列でマージがあった場合はマージしない)
+                elif tiles[row,column] == tiles[row + 1,column] and tiles[row,column] != 0 and isNotMerged:
+                        tiles[row,column] = tiles[row,column] * 2
+                        tiles[row + 1,column] = 0
+                        isNotMerged = False
+                        isMovedInThisLoop = True
+                        isMoved = True
+        return isMoved
+
+        #flag = True
+        #for i in range(3):
+        #    for j in range(4):
+        #        # 上のマスがblankだった場合
+        #        if tiles[i,j] == 0 and tiles[i + 1,j] != 0:
+        #            tiles[i,j] = tiles[i + 1,j]
+        #            tiles[i + 1,j] = 0
+        #            flag = False
+        #        # 上のマスと下のマスの番号が同じ場合マージする
+        #        elif tiles[i,j] == tiles[i + 1,j] and tiles[i,j] != 0:
+        #            tiles[i,j] = tiles[i,j] * 2
+        #            tiles[i + 1,j] = 0
+        #            flag = False
+        #return flag
+
 
      # 1マスだけ全てのタイルを下に上げる
     # どのタイルも動かなかったらTrueを返す

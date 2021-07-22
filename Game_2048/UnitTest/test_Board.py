@@ -89,7 +89,7 @@ class TestBoard(unittest.TestCase):
 
         self.assertTrue((self.copiedTiles == self.board.tiles).all())
 
-        # 縦に(4,2,2)と並ぶ
+    # 縦に(4,2,2)と並ぶ
     def test_keyUp_7(self):
         self.board.tiles[0,0] = 4
         self.board.tiles[1,0] = 2
@@ -98,6 +98,21 @@ class TestBoard(unittest.TestCase):
 
         self.copiedTiles[0,0] = 4
         self.copiedTiles[1,0] = 4
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+     # 
+    def test_keyUp_7(self):
+        self.board.tiles[0,0] = 2
+        self.board.tiles[2,0] = 2
+        self.board.tiles[3,0] = 4
+        self.board.tiles[0,1] = 4
+        self.board.tiles[1,1] = 4
+        self.board.keyUp()
+
+        self.copiedTiles[0,0] = 4
+        self.copiedTiles[1,0] = 4
+        self.copiedTiles[0,1] = 8
 
         self.assertTrue((self.copiedTiles == self.board.tiles).all())
 
