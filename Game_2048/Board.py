@@ -38,7 +38,14 @@ class Board():
     def keyUp(self):
         flag = False    # タイルが1つも動かないままならFalseとなる
         for column in range(4):
-            if self.moveTilesUp(self.tiles,column):
+            # 縦に4つ同じ数字が並んでいる場合上半分、下半分でそれぞれマージを行う
+            if self.tiles[0,column] == self.tiles[1,column] and self.tiles[1,column] == self.tiles[2,column] and self.tiles[2,column] == self.tiles[3,column] and self.tiles[0,column] != 0:
+                self.tiles[0,column] = self.tiles[0,column] * 2
+                self.tiles[1,column] = self.tiles[2,column] * 2
+                self.tiles[2,column] = 0
+                self.tiles[3,column] = 0
+                flag = True
+            elif self.moveTilesUp(self.tiles,column):
                 flag = True
         return flag
 
@@ -185,8 +192,8 @@ class Board():
             genNum = 4
 
          while(True):
-            rand_i = random.randrange(0,3,1)
-            rand_j = random.randrange(0,3,1)
+            rand_i = random.randrange(0,4,1)
+            rand_j = random.randrange(0,4,1)
             if self.tiles[rand_i][rand_j] == 0:
                 self.tiles[rand_i,rand_j] = genNum
                 break
