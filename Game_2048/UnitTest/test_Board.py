@@ -116,5 +116,17 @@ class TestBoard(unittest.TestCase):
 
         self.assertTrue((self.copiedTiles == self.board.tiles).all())
 
+    # 縦に(2,2,2,0)と並ぶ
+    def test_keyDown_1(self):
+        self.board.tiles[0,0] = 2
+        self.board.tiles[1,0] = 2
+        self.board.tiles[2,0] = 2
+        self.board.keyDown()
+
+        self.copiedTiles[2,0] = 2
+        self.copiedTiles[3,0] = 4
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
 if __name__ == "__main__":
     unittest.main()

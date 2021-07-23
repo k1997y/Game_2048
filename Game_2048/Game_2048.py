@@ -47,7 +47,8 @@ def main():
                     if board.keyUp():
                         board.genTileRandomly()
                 elif event.key == K_DOWN:
-                    board.keyDown()
+                    if board.keyDown():
+                        board.genTileRandomly()
                 elif event.key == K_LEFT:
                     board.keyLeft()
                 elif event.key == K_RIGHT:
