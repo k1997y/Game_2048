@@ -12,13 +12,17 @@ def main():
         key = input()
 
         if key == 'w':
-            board.keyUp()
+            if board.keyUp():
+                board.genTileRandomly()
         elif key == 's':
-            board.keyDown()
+            if board.keyDown():
+                board.genTileRandomly()
         elif key == 'a':
-            board.keyLeft()
+            if board.keyLeft():
+                board.genTileRandomly()
         elif key == 'd':
-            board.keyRight()
+            if board.keyRight():
+                board.genTileRandomly()
         elif key == "quit":
             sys.exit()
 
