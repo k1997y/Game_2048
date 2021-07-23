@@ -1,6 +1,5 @@
 import pygame
 import numpy as np
-import random
 
 class Board():
     # 定数
@@ -100,16 +99,29 @@ class Board():
     #    if i != 0:
     #        self.genTileRandomly()
 
-    # rightキーを押したときの挙動を定義
     def keyRight(self):
-        i = 0
-        while True:
-            # どのタイルも動かなくなるまで繰り返す
-            if self.oneRightTile(self.tiles):
-                break
-            i = i + 1
-        if i != 0:
-            self.genTileRandomly()
+        flag = False    # タイルが1つも動かないままならFalseとなる
+        for row in range(4):
+            # 横に4つ同じ数字が並んでいる場合左半分、右半分でそれぞれマージを行う
+            if self.tiles[row,0] == self.tiles[row,1] and self.tiles[row,1] == self.tiles[row,2] and self.tiles[row,2] == self.tiles[row,3] and self.tiles[row,0] != 0:
+                self.tiles[row,0] = self.tiles[row,0] * 2
+                self.tiles[row,1] = self.tiles[row,2] * 2
+                self.tiles[row,2] = 0
+                self.tiles[row,3] = 0
+                flag = True
+            elif self.moveTilesRight(self.tiles,row):
+                flag = True
+        return flag
+    # rightキーを押したときの挙動を定義
+    #def keyRight(self):
+    #    i = 0
+    #    while True:
+    #        # どのタイルも動かなくなるまで繰り返す
+    #        if self.oneRightTile(self.tiles):
+    #            break
+    #        i = i + 1
+    #    if i != 0:
+    #        self.genTileRandomly()
 
 
         
@@ -167,15 +179,15 @@ class Board():
             isMovedInThisLoop = False
             for row in range(3):
                 # 下のマスが空ならタイルを移動
-                if tiles[3-row,column] == 0 and tiles[2-row,column] != 0:
-                    tiles[3-row,column] = tiles[2-row,column]
-                    tiles[2-row,column] = 0
+                if tiles[3 - row,column] == 0 and tiles[2 - row,column] != 0:
+                    tiles[3 - row,column] = tiles[2 - row,column]
+                    tiles[2 - row,column] = 0
                     isMovedInThisLoop = True
                     isMoved = True
                 # 上のマスと下のマスの数字が同じ場合マージする(既にこの列でマージがあった場合はマージしない)
-                elif tiles[3-row,column] == tiles[2-row,column] and tiles[3-row,column] != 0 and isNotMerged:
-                        tiles[3-row,column] = tiles[3-row,column] * 2
-                        tiles[2-row,column] = 0
+                elif tiles[3 - row,column] == tiles[2 - row,column] and tiles[3 - row,column] != 0 and isNotMerged:
+                        tiles[3 - row,column] = tiles[3 - row,column] * 2
+                        tiles[2 - row,column] = 0
                         isNotMerged = False
                         isMovedInThisLoop = True
                         isMoved = True
@@ -211,15 +223,15 @@ class Board():
             isMovedInThisLoop = False
             for column in range(3):
                 # 左のマスが空ならタイルを移動
-                if tiles[row,column] == 0 and tiles[row,column+1] != 0:
-                    tiles[row,column] = tiles[row,column+1]
-                    tiles[row ,column+1] = 0
+                if tiles[row,column] == 0 and tiles[row,column + 1] != 0:
+                    tiles[row,column] = tiles[row,column + 1]
+                    tiles[row ,column + 1] = 0
                     isMovedInThisLoop = True
                     isMoved = True
                 # 上のマスと下のマスの数字が同じ場合マージする(既にこの行でマージがあった場合はマージしない)
-                elif tiles[row,column] == tiles[row,column+1] and tiles[row,column] != 0 and isNotMerged:
+                elif tiles[row,column] == tiles[row,column + 1] and tiles[row,column] != 0 and isNotMerged:
                         tiles[row,column] = tiles[row,column] * 2
-                        tiles[row ,column+1] = 0
+                        tiles[row ,column + 1] = 0
                         isNotMerged = False
                         isMovedInThisLoop = True
                         isMoved = True
@@ -242,36 +254,61 @@ class Board():
     #                flag = False
     #    return flag
 
+
+      # 指定された行のタイルを右に移動させる
+    def moveTilesRight(self,tiles,row):
+        isMovedInThisLoop = True # その周で1度でも動いたらTrueにする
+        isNotMerged = True  # マージ済みならFalse
+        isMoved = False # この関数内で1度も動かなかったらFalse
+
+        # タイルが動かなくなるまでループする
+        while isMovedInThisLoop:
+            isMovedInThisLoop = False
+            for column in range(3):
+                # 右のマスが空ならタイルを移動
+                if tiles[row,3 - column] == 0 and tiles[row,2 - column] != 0:
+                    tiles[row,3 - column] = tiles[row,2 - column]
+                    tiles[row ,2 - column] = 0
+                    isMovedInThisLoop = True
+                    isMoved = True
+                # 右のマスと左のマスの数字が同じ場合マージする(既にこの行でマージがあった場合はマージしない)
+                elif tiles[row,3 - column] == tiles[row,2 - column] and tiles[row,3 - column] != 0 and isNotMerged:
+                        tiles[row,3 - column] = tiles[row,3 - column] * 2
+                        tiles[row ,2 - column] = 0
+                        isNotMerged = False
+                        isMovedInThisLoop = True
+                        isMoved = True
+        return isMoved
     # 1マスだけ全てのタイルを右に移動する
     # どのタイルも動かなかったらTrueを返す
-    def oneRightTile(self,tiles):
-        flag = True
-        for i in range(4):
-            for j in range(3):
-                # 右のマスがblankだった場合
-                if tiles[i,j + 1] == 0 and tiles[i,j] != 0:
-                    tiles[i,j + 1] = tiles[i,j]
-                    tiles[i,j] = 0
-                    flag = False
-                # 右のマスと番号が同じ場合マージする
-                elif tiles[i,j + 1] == tiles[i ,j] and tiles[i,j] != 0:
-                    tiles[i,j + 1] = tiles[i,j + 1] * 2
-                    tiles[i,j] = 0
-                    flag = False
-        return flag
+    #def oneRightTile(self,tiles):
+    #    flag = True
+    #    for i in range(4):
+    #        for j in range(3):
+    #            # 右のマスがblankだった場合
+    #            if tiles[i,j + 1] == 0 and tiles[i,j] != 0:
+    #                tiles[i,j + 1] = tiles[i,j]
+    #                tiles[i,j] = 0
+    #                flag = False
+    #            # 右のマスと番号が同じ場合マージする
+    #            elif tiles[i,j + 1] == tiles[i ,j] and tiles[i,j] != 0:
+    #                tiles[i,j + 1] = tiles[i,j + 1] * 2
+    #                tiles[i,j] = 0
+    #                flag = False
+    #    return flag
 
 
     # 予め設定された確率で2か4を盤面上に生成する
     def genTileRandomly(self):
          genNum = 0
-         if self.P_2 > random.random():
+         if self.P_2 > np.random.random():
             genNum = 2
          else:
             genNum = 4
 
          while(True):
-            rand_i = random.randrange(0,4,1)
-            rand_j = random.randrange(0,4,1)
+            rand_i = np.random.randint(0,4)
+            rand_j = np.random.randint(0,4)
             if self.tiles[rand_i][rand_j] == 0:
                 self.tiles[rand_i,rand_j] = genNum
                 break

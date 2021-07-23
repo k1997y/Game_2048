@@ -53,7 +53,8 @@ def main():
                     if board.keyLeft():
                         board.genTileRandomly()
                 elif event.key == K_RIGHT:
-                    board.keyRight()
+                    if board.keyRight():
+                        board.genTileRandomly()
 
         # 画面更新
         drawBoard(font,screen,board)
