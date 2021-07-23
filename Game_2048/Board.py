@@ -75,16 +75,30 @@ class Board():
     #    if i != 0:
     #        self.genTileRandomly()
 
-     # leftキーを押したときの挙動を定義
     def keyLeft(self):
-        i = 0
-        while True:
-            # どのタイルも動かなくなるまで繰り返す
-            if self.oneLeftTile(self.tiles):
-                break
-            i = i + 1
-        if i != 0:
-            self.genTileRandomly()
+        flag = False    # タイルが1つも動かないままならFalseとなる
+        for row in range(4):
+            # 横に4つ同じ数字が並んでいる場合左半分、右半分でそれぞれマージを行う
+            if self.tiles[row,0] == self.tiles[row,1] and self.tiles[row,1] == self.tiles[row,2] and self.tiles[row,2] == self.tiles[row,3] and self.tiles[row,0] != 0:
+                self.tiles[row,0] = self.tiles[row,0] * 2
+                self.tiles[row,1] = self.tiles[row,2] * 2
+                self.tiles[row,2] = 0
+                self.tiles[row,3] = 0
+                flag = True
+            elif self.moveTilesLeft(self.tiles,row):
+                flag = True
+        return flag
+
+     # leftキーを押したときの挙動を定義
+    #def keyLeft(self):
+    #    i = 0
+    #    while True:
+    #        # どのタイルも動かなくなるまで繰り返す
+    #        if self.oneLeftTile(self.tiles):
+    #            break
+    #        i = i + 1
+    #    if i != 0:
+    #        self.genTileRandomly()
 
     # rightキーを押したときの挙動を定義
     def keyRight(self):
@@ -101,7 +115,7 @@ class Board():
         
 
     # TODO: フラグ変数が多く可読性が低いため、関数で分割するなど工夫できないか
-    # 指定された行のタイルを上に移動させる
+    # 指定された列のタイルを上に移動させる
     def moveTilesUp(self,tiles,column):
         isMovedInThisLoop = True # その周で1度でも動いたらTrueにする
         isNotMerged = True  # マージ済みならFalse
@@ -142,7 +156,7 @@ class Board():
         #return flag
 
 
-           # 指定された行のタイルを下に移動させる
+           # 指定された列のタイルを下に移動させる
     def moveTilesDown(self,tiles,column):
         isMovedInThisLoop = True # その周で1度でも動いたらTrueにする
         isNotMerged = True  # マージ済みならFalse
@@ -185,23 +199,48 @@ class Board():
     #                flag = False
     #    return flag
 
+
+     # 指定された行のタイルを左に移動させる
+    def moveTilesLeft(self,tiles,row):
+        isMovedInThisLoop = True # その周で1度でも動いたらTrueにする
+        isNotMerged = True  # マージ済みならFalse
+        isMoved = False # この関数内で1度も動かなかったらFalse
+
+        # タイルが動かなくなるまでループする
+        while isMovedInThisLoop:
+            isMovedInThisLoop = False
+            for column in range(3):
+                # 左のマスが空ならタイルを移動
+                if tiles[row,column] == 0 and tiles[row,column+1] != 0:
+                    tiles[row,column] = tiles[row,column+1]
+                    tiles[row ,column+1] = 0
+                    isMovedInThisLoop = True
+                    isMoved = True
+                # 上のマスと下のマスの数字が同じ場合マージする(既にこの行でマージがあった場合はマージしない)
+                elif tiles[row,column] == tiles[row,column+1] and tiles[row,column] != 0 and isNotMerged:
+                        tiles[row,column] = tiles[row,column] * 2
+                        tiles[row ,column+1] = 0
+                        isNotMerged = False
+                        isMovedInThisLoop = True
+                        isMoved = True
+        return isMoved
     # 1マスだけ全てのタイルを左に移動する
     # どのタイルも動かなかったらTrueを返す
-    def oneLeftTile(self,tiles):
-        flag = True
-        for i in range(4):
-            for j in range(3):
-                # 左のマスがblankだった場合
-                if tiles[i,j] == 0 and tiles[i,j + 1] != 0:
-                    tiles[i,j] = tiles[i,j + 1]
-                    tiles[i,j + 1] = 0
-                    flag = False
-                # 左のマスと番号が同じ場合マージする
-                elif tiles[i,j] == tiles[i ,j + 1] and tiles[i,j + 1] != 0:
-                    tiles[i,j] = tiles[i,j] * 2
-                    tiles[i,j + 1] = 0
-                    flag = False
-        return flag
+    #def oneLeftTile(self,tiles):
+    #    flag = True
+    #    for i in range(4):
+    #        for j in range(3):
+    #            # 左のマスがblankだった場合
+    #            if tiles[i,j] == 0 and tiles[i,j + 1] != 0:
+    #                tiles[i,j] = tiles[i,j + 1]
+    #                tiles[i,j + 1] = 0
+    #                flag = False
+    #            # 左のマスと番号が同じ場合マージする
+    #            elif tiles[i,j] == tiles[i ,j + 1] and tiles[i,j + 1] != 0:
+    #                tiles[i,j] = tiles[i,j] * 2
+    #                tiles[i,j + 1] = 0
+    #                flag = False
+    #    return flag
 
     # 1マスだけ全てのタイルを右に移動する
     # どのタイルも動かなかったらTrueを返す
