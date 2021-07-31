@@ -122,7 +122,7 @@ class TestBoard(unittest.TestCase):
         self.board.tiles[1,0] = 4
         self.board.tiles[2,0] = 2
         self.board.tiles[3,0] = 2
-        self.board.keyDown()
+        self.board.keyUp()
 
         self.copiedTiles[0,0] = 8
         self.copiedTiles[1,0] = 4
@@ -135,11 +135,11 @@ class TestBoard(unittest.TestCase):
         self.board.tiles[1,0] = 2
         self.board.tiles[2,0] = 2
         self.board.tiles[3,0] = 2
-        self.board.keyDown()
+        self.board.keyUp()
 
         self.copiedTiles[0,0] = 4
-        self.copiedTiles[1,0] = 2
-        self.copiedTiles[1,0] = 2
+        self.copiedTiles[1,0] = 4
+        self.copiedTiles[2,0] = 2
 
         self.assertTrue((self.copiedTiles == self.board.tiles).all())
 
