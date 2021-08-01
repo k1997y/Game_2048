@@ -15,6 +15,7 @@ class Board():
         self.score = 0
 
         # 盤面の2次元配列の作成
+
         self.tiles = np.zeros((4,4),dtype = "uint8")
 
         # ランダムで盤面に2枚のタイルを作成する

@@ -1,3 +1,4 @@
+import pygame
 import numpy as np
 
 class Board():
@@ -14,6 +15,7 @@ class Board():
         self.score = 0
 
         # 盤面の2次元配列の作成
+
         self.tiles = np.zeros((4,4),dtype = "uint8")
 
         # ランダムで盤面に2枚のタイルを作成する
@@ -32,6 +34,13 @@ class Board():
                 self.tiles[2,column] = 0
                 self.tiles[3,column] = 0
                 flag = True
+            # 上半分に同じ数字、下半分に同じ数字が並んでいる場合、上半分、下半分でそれぞれマージを行う
+            elif self.tiles[0,column] == self.tiles[1,column] and self.tiles[2,column] == self.tiles[3,column] and self.tiles[0,column] != 0 and self.tiles[2,column] != 0:
+                self.tiles[0,column] = self.tiles[0,column] * 2
+                self.tiles[1,column] = self.tiles[2,column] * 2
+                self.tiles[2,column] = 0
+                self.tiles[3,column] = 0
+                flag= True
             elif self.moveTilesUp(self.tiles,column):
                 flag = True
         return flag
@@ -47,6 +56,13 @@ class Board():
                 self.tiles[1,column] = 0
                 self.tiles[0,column] = 0
                 flag = True
+            # 上半分に同じ数字、下半分に同じ数字が並んでいる場合、上半分、下半分でそれぞれマージを行う
+            elif self.tiles[0,column] == self.tiles[1,column] and self.tiles[2,column] == self.tiles[3,column] and self.tiles[0,column] != 0 and self.tiles[2,column] != 0:
+                self.tiles[3,column] = self.tiles[3,column] * 2
+                self.tiles[2,column] = self.tiles[1,column] * 2
+                self.tiles[1,column] = 0
+                self.tiles[0,column] = 0
+                flag= True
             elif self.moveTilesDown(self.tiles,column):
                 flag = True
         return flag
@@ -62,6 +78,13 @@ class Board():
                 self.tiles[row,2] = 0
                 self.tiles[row,3] = 0
                 flag = True
+                # 上半分に同じ数字、下半分に同じ数字が並んでいる場合、上半分、下半分でそれぞれマージを行う
+            elif self.tiles[row,0] == self.tiles[row,1] and self.tiles[row,2] == self.tiles[row,3] and self.tiles[row,0] != 0 and self.tiles[row,2] != 0:
+                self.tiles[row,0] = self.tiles[row,0] * 2
+                self.tiles[row,1] = self.tiles[row,2] * 2
+                self.tiles[row,2] = 0
+                self.tiles[row,3] = 0
+                flag= True
             elif self.moveTilesLeft(self.tiles,row):
                 flag = True
         return flag
@@ -72,11 +95,18 @@ class Board():
         for row in range(4):
             # 横に4つ同じ数字が並んでいる場合左半分、右半分でそれぞれマージを行う
             if self.tiles[row,0] == self.tiles[row,1] and self.tiles[row,1] == self.tiles[row,2] and self.tiles[row,2] == self.tiles[row,3] and self.tiles[row,0] != 0:
-                self.tiles[row,0] = self.tiles[row,0] * 2
-                self.tiles[row,1] = self.tiles[row,2] * 2
-                self.tiles[row,2] = 0
-                self.tiles[row,3] = 0
+                self.tiles[row,3] = self.tiles[row,3] * 2
+                self.tiles[row,2] = self.tiles[row,1] * 2
+                self.tiles[row,1] = 0
+                self.tiles[row,0] = 0
                 flag = True
+            # 上半分に同じ数字、下半分に同じ数字が並んでいる場合、上半分、下半分でそれぞれマージを行う
+            elif self.tiles[row,0] == self.tiles[row,1] and self.tiles[row,2] == self.tiles[row,3] and self.tiles[row,0] != 0 and self.tiles[row,2] != 0:
+                self.tiles[row,3] = self.tiles[row,3] * 2
+                self.tiles[row,2] = self.tiles[row,1] * 2
+                self.tiles[row,1] = 0
+                self.tiles[row,0] = 0
+                flag= True
             elif self.moveTilesRight(self.tiles,row):
                 flag = True
         return flag
