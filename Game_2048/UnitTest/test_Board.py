@@ -259,7 +259,7 @@ class TestBoard(unittest.TestCase):
 
         self.assertTrue((self.copiedTiles == self.board.tiles).all())
 
-         # 縦に(4,2,2,2)と並ぶ
+     # 縦に(4,2,2,2)と並ぶ
     def test_keyDown_10(self):
         self.board.tiles[0,0] = 4
         self.board.tiles[1,0] = 2
@@ -270,6 +270,134 @@ class TestBoard(unittest.TestCase):
         self.copiedTiles[1,0] = 4
         self.copiedTiles[2,0] = 2
         self.copiedTiles[3,0] = 4
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+
+    ###################
+    #          左移動のテスト             #
+    ###################
+    # 1マス動く場合
+    def test_keyLeft_1(self):
+        self.board.tiles[0,0] = 2
+        self.board.tiles[1,1] = 2
+        self.board.keyLeft()
+
+        self.copiedTiles[0,0] = 2
+        self.copiedTiles[1,0] = 2
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+    # 1マスも動かない
+    def test_keyLeft_2(self):
+        self.board.tiles[0,0] = 2
+        self.board.tiles[1,0] = 2
+        self.board.keyLeft()
+
+        self.copiedTiles[0,0] = 2
+        self.copiedTiles[1,0] = 2
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+    # 横に同じタイル(2)が2枚並ぶ
+    def test_keyLeft_3(self):
+        self.board.tiles[0,0] = 2
+        self.board.tiles[0,1] = 2
+        self.board.keyLeft()
+
+        self.copiedTiles[0,0] = 4
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+    # 横に同じタイル(2)が3枚並ぶ
+    def test_keyLeft_4(self):
+        self.board.tiles[0,0] = 2
+        self.board.tiles[0,1] = 2
+        self.board.tiles[0,2] = 2
+        self.board.keyLeft()
+
+        self.copiedTiles[0,0] = 4
+        self.copiedTiles[0,1] = 2
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+                
+    # 横に同じタイル(2)が4枚並ぶ
+    def test_keyLeft_5(self):
+        self.board.tiles[0,0] = 2
+        self.board.tiles[0,1] = 2
+        self.board.tiles[0,2] = 2
+        self.board.tiles[0,3] = 2
+        self.board.keyLeft()
+
+        self.copiedTiles[0,0] = 4
+        self.copiedTiles[0,1] = 4
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+    # 横に(2,2,4)と並ぶ
+    def test_keyLeft_6(self):
+        self.board.tiles[0,0] = 2
+        self.board.tiles[0,1] = 2
+        self.board.tiles[0,2] = 4
+        self.board.keyLeft()
+
+        self.copiedTiles[0,0] = 4
+        self.copiedTiles[0,1] = 4
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+    # 横に(4,2,2)と並ぶ
+    def test_keyLeft_7(self):
+        self.board.tiles[0,0] = 4
+        self.board.tiles[0,1] = 2
+        self.board.tiles[0,2] = 2
+        self.board.keyLeft()
+
+        self.copiedTiles[0,0] = 4
+        self.copiedTiles[0,1] = 4
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+     # その他例外ケース
+    def test_keyLeft_8(self):
+        self.board.tiles[0,0] = 2
+        self.board.tiles[0,2] = 2
+        self.board.tiles[0,3] = 4
+        self.board.tiles[1,0] = 4
+        self.board.tiles[1,1] = 4
+        self.board.keyLeft()
+
+        self.copiedTiles[0,0] = 4
+        self.copiedTiles[0,1] = 4
+        self.copiedTiles[1,0] = 8
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+     # 横に(4,4,2,2)と並ぶ
+    def test_keyLeft_9(self):
+        self.board.tiles[0,0] = 4
+        self.board.tiles[0,1] = 4
+        self.board.tiles[0,2] = 2
+        self.board.tiles[0,3] = 2
+        self.board.keyLeft()
+
+        self.copiedTiles[0,0] = 8
+        self.copiedTiles[0,1] = 4
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+         # 横に(4,2,2,2)と並ぶ
+    def test_keyLeft_10(self):
+        self.board.tiles[0,0] = 4
+        self.board.tiles[0,1] = 2
+        self.board.tiles[0,2] = 2
+        self.board.tiles[0,3] = 2
+        self.board.keyLeft()
+
+        self.copiedTiles[0,0] = 4
+        self.copiedTiles[0,1] = 4
+        self.copiedTiles[0,2] = 2
 
         self.assertTrue((self.copiedTiles == self.board.tiles).all())
     
