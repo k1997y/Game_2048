@@ -57,7 +57,13 @@ def main():
                         board.genTileRandomly()
 
         # ボードの状態を確認して勝敗を判断する
-        board.gameState()
+        state = board.gameState()
+        if state == "win":
+            print("win")
+            sys.exit()
+        elif state == "lose":
+            print("lose")
+            sys.exit()
 
         # 画面更新
         drawBoard(font,screen,board)

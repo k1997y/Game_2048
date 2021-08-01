@@ -528,6 +528,20 @@ class TestBoard(unittest.TestCase):
         self.copiedTiles[0,3] = 4
 
         self.assertTrue((self.copiedTiles == self.board.tiles).all())
+
+
+    ###################
+    #          盤面判断のテスト          #
+    ###################
+    # 勝利パターン1
+    def test_win_1(self):
+        self.board.tiles[0,0] = 2048
+        self.board.keyRight()
+
+        self.copiedTiles[0,2] = 2
+        self.copiedTiles[0,3] = 4
+
+        self.assertTrue((self.copiedTiles == self.board.tiles).all())
     
 
 
