@@ -34,7 +34,7 @@ class Board():
                 self.tiles[3,column] = 0
                 flag = True
             # 上半分に同じ数字、下半分に同じ数字が並んでいる場合、上半分、下半分でそれぞれマージを行う
-            elif self.tiles[0,column] == self.tiles[1,column] and self.tiles[2,column] == self.tiles[3,column]:
+            elif self.tiles[0,column] == self.tiles[1,column] and self.tiles[2,column] == self.tiles[3,column] and self.tiles[0,column] == 0 and self.tiles[2,column] == 0:
                 self.tiles[0,column] = self.tiles[0,column] * 2
                 self.tiles[1,column] = self.tiles[2,column] * 2
                 self.tiles[2,column] = 0
@@ -56,7 +56,7 @@ class Board():
                 self.tiles[0,column] = 0
                 flag = True
             # 上半分に同じ数字、下半分に同じ数字が並んでいる場合、上半分、下半分でそれぞれマージを行う
-            elif self.tiles[0,column] == self.tiles[1,column] and self.tiles[2,column] == self.tiles[3,column]:
+            elif self.tiles[0,column] == self.tiles[1,column] and self.tiles[2,column] == self.tiles[3,column] and self.tiles[0,column] == 0 and self.tiles[2,column] == 0:
                 self.tiles[3,column] = self.tiles[3,column] * 2
                 self.tiles[2,column] = self.tiles[1,column] * 2
                 self.tiles[1,column] = 0
@@ -78,7 +78,7 @@ class Board():
                 self.tiles[row,3] = 0
                 flag = True
                 # 上半分に同じ数字、下半分に同じ数字が並んでいる場合、上半分、下半分でそれぞれマージを行う
-            elif self.tiles[row,0] == self.tiles[row,1] and self.tiles[row,2] == self.tiles[row,3]:
+            elif self.tiles[row,0] == self.tiles[row,1] and self.tiles[row,2] == self.tiles[row,3] and self.tiles[row,0] == 0 and self.tiles[row,2] == 0:
                 self.tiles[row,0] = self.tiles[row,0] * 2
                 self.tiles[row,1] = self.tiles[row,2] * 2
                 self.tiles[row,2] = 0
@@ -100,7 +100,7 @@ class Board():
                 self.tiles[row,0] = 0
                 flag = True
             # 上半分に同じ数字、下半分に同じ数字が並んでいる場合、上半分、下半分でそれぞれマージを行う
-            elif self.tiles[row,0] == self.tiles[row,1] and self.tiles[row,2] == self.tiles[row,3]:
+            elif self.tiles[row,0] == self.tiles[row,1] and self.tiles[row,2] == self.tiles[row,3] and self.tiles[row,0] == 0 and self.tiles[row,2] == 0:
                 self.tiles[row,3] = self.tiles[row,3] * 2
                 self.tiles[row,2] = self.tiles[row,1] * 2
                 self.tiles[row,1] = 0

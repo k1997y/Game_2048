@@ -431,7 +431,7 @@ class TestBoard(unittest.TestCase):
     def test_keyRight_3(self):
         self.board.tiles[0,0] = 2
         self.board.tiles[0,1] = 2
-        self.board.keyRIght()
+        self.board.keyRight()
 
         self.copiedTiles[0,3] = 4
 
