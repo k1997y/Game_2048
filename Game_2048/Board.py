@@ -226,3 +226,23 @@ class Board():
             if self.tiles[rand_i][rand_j] == 0:
                 self.tiles[rand_i,rand_j] = genNum
                 break
+
+    # ゲームの状態を返す
+    # 2048のタイルがあるなら勝利('win'), タイルがこれ以上動かせないなら('lose'), ゲーム続行できる状態なら('not over')
+    def gameState(self):
+        # 2048のタイルが存在するか確認する
+        for row in range(4):
+            for column in range(4):
+                if self.tiles[row,column] == 2048:
+                    return "win"
+        # 空のタイルがあるなら動かせる
+        for row in range(4):
+            for column in range(4):
+                if self.tiles[row,column] == 0:
+                    return "not over"
+        # 隣り合うタイルが同じ数なら動かせる
+        for row in range(3):
+            for column in range(3):
+                if self.tiles[row,column] == self.tiles[row+1,column] or self.tiles[row,column] == self.tiles[row,column+1]:
+                    return "not over"
+        return "lose"
