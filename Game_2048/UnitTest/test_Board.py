@@ -536,13 +536,35 @@ class TestBoard(unittest.TestCase):
     # 勝利パターン1
     def test_win_1(self):
         self.board.tiles[0,0] = 2048
-        self.board.keyRight()
+        state = self.board.gameState()
 
-        self.copiedTiles[0,2] = 2
-        self.copiedTiles[0,3] = 4
+        self.assertEqual("win",state)
 
-        self.assertTrue((self.copiedTiles == self.board.tiles).all())
-    
+    # 勝利パターン2
+    def test_win_2(self):
+        self.board.tiles[0,0] = 2048
+        self.board.tiles[0,1] = 2048
+        state = self.board.gameState()
+
+        self.assertEqual("win",state)
+
+    # 敗北パターン1
+    def test_lose_1(self):
+        for row in range(4):
+            for column in range(4):
+                if row % 2 == 0 and column % 2 == 0:
+                    self.board.tiles[row,column] = 2
+                elif row % 2 == 0 and column % 2 == 1:
+                    self.board.tiles[row,column] = 4
+                elif row %2 == 1 and column % 2 == 0:
+                    self.board.tiles[row,column] = 4
+                elif row %2 == 1 and column % 2 == 1:
+                    self.board.tiles[row,column] = 2
+        state = self.board.gameState()
+        
+        self.assertEqual("lose",state)
+
+
 
 
 if __name__ == "__main__":
