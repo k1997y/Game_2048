@@ -115,7 +115,5 @@ def drawBoard(font,screen,board):
                 # TODO: 文字の位置が適切でないため修正必要
                 screen.blit(text,[(j + 1) * board.INTERVAL + j * board.TILE_WIDTH + (board.TILE_WIDTH / 3),(i + 1) * board.INTERVAL + i * board.TILE_HEIGHT + (board.TILE_HEIGHT / 3)])
      
-
-
 if __name__ == "__main__":
     main()
