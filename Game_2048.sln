@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Game_2048", "Game_2048\Game_2048.pyproj", "{3B01E3F3-EC4F-4495-B1CE-22D5C269B63E}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Game_2048_withAI", "Game_2048_withAI\Game_2048_withAI.pyproj", "{EF3C7EC4-31C3-401A-81BF-70E5CF55DA08}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Game_2048_CUI", "Game_2048_withAI\Game_2048_CUI.pyproj", "{EF3C7EC4-31C3-401A-81BF-70E5CF55DA08}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Game_2048_PolicyGradientMethods", "Game_2048_PolicyGradientMethods\Game_2048_PolicyGradientMethods.pyproj", "{BC43E5CE-5749-42C5-9FAC-EC0C0FA81D41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,8 @@ Global
 		{3B01E3F3-EC4F-4495-B1CE-22D5C269B63E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF3C7EC4-31C3-401A-81BF-70E5CF55DA08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF3C7EC4-31C3-401A-81BF-70E5CF55DA08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC43E5CE-5749-42C5-9FAC-EC0C0FA81D41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC43E5CE-5749-42C5-9FAC-EC0C0FA81D41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

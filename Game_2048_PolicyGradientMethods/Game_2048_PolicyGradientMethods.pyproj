@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>ef3c7ec4-31c3-401a-81bf-70e5cf55da08</ProjectGuid>
+    <ProjectGuid>bc43e5ce-5749-42c5-9fac-ec0c0fa81d41</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Game_2048_withAI.py</StartupFile>
+    <StartupFile>Game_2048_PolicyGradientMethods.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Game_2048_withAI</Name>
-    <RootNamespace>Game_2048_withAI</RootNamespace>
+    <Name>Game_2048_PolicyGradientMethods</Name>
+    <RootNamespace>Game_2048_PolicyGradientMethods</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,8 +21,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Board.py" />
-    <Compile Include="Game_2048_withAI.py" />
+    <Compile Include="Board.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Game_2048_PolicyGradientMethods.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
